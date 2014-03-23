@@ -1,0 +1,13 @@
+---
+
+- name: write global bashrc
+  copy: src=bash.bashrc dest=/etc/bash.bashrc owner=root group=root mode=0644
+
+- name: write root and skeleton .bashrc
+  copy: "src=.bashrc dest={{ item }}/.bashrc owner=root group=root mode=0644"
+  with_items:
+    - /root
+    - /etc/skel
+
+- name: write current user homedir .bashrc
+  copy: "src=.bashrc dest=/home/{{ ansible_ssh_user }}/.bashrc owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0644"
