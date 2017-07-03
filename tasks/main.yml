@@ -9,5 +9,10 @@
     - /root
     - /etc/skel
 
-- name: write current user homedir .bashrc
-  copy: "src=.bashrc dest={{ ansible_env['HOME'] }}/.bashrc owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0644"
+- name: determine ssh user homedir
+  shell: "getent passwd {{ ansible_ssh_user }} | cut -d: -f6"
+  register: bashrc_homedir
+  changed_when: False
+
+- name: write ssh user homedir .bashrc
+  copy: "src=.bashrc dest={{ bashrc_homedir.stdout }}/.bashrc owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0644"
