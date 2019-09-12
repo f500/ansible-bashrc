@@ -1,4 +1,4 @@
 ---
 
 bashrc_users:
-  - "provision"
+  - "{{ ansible_ssh_user }}"
