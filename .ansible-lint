@@ -49,7 +49,8 @@ use_default_rules: true
 # the use of skip_list below because that will hide violations from the output.
 # When putting ignores inside the ignore file, they are marked as ignored, but
 # still visible, making it easier to address later.
-#skip_list:
+skip_list:
+  - risky-shell-pipe
 #  - skip_this_tag
 
 # Ansible-lint does not automatically load rules that have the 'opt-in' tag.

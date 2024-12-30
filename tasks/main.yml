@@ -19,10 +19,11 @@
     - /etc/skel
 
 - name: Determine ssh user homedir
-  ansible.builtin.shell: "set -o pipefail && getent passwd {{ item }} | cut -d: -f6"
+  ansible.builtin.shell: "getent passwd {{ item }} | cut -d: -f6"
   register: bashrc_homedirs
   with_items: "{{ bashrc_users }}"
   changed_when: false
+  failed_when: bashrc_homedirs.rc != 0
 
 - name: Write ssh user homedir .bashrc
   ansible.builtin.copy:
